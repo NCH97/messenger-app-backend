@@ -6,6 +6,7 @@ const {body,validationResult} = require('express-validator')
 const jsonwebtoken = require('jsonwebtoken');
 const {secret} = require('../config')
 
+//LOGIN
 router.post('/login',
     body('username')
     .notEmpty()
@@ -24,11 +25,11 @@ router.post('/login',
     
     const user = await UserModel.findOne({username: req.body.username})
     if(!user){
-        return res.status(404).send({message: 'user not found'})
+        return res.status(404).send({message:  req.t('user_not_found')})
     }
     const samePassword = await user.comparePassword(req.body.password)
     if(!samePassword) {
-    return res.status(404).send({message:'password invalid'})
+    return res.status(404).send({message: req.t('password_invalid')})
     }
     const token = jsonwebtoken.sign({
         _id: user._id
@@ -43,6 +44,7 @@ router.post('/login',
     console.log('connexion')
 })
 
+//LOGOUT
 router.delete('/logout', async (req, res) => {
   res.cookie('jwt', '', {maxAge: 0})
   res.send({})

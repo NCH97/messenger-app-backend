@@ -14,11 +14,11 @@ router.get('/:id/messages',
     .isMongoId(), 
     async (req, res) => {
     if(!req.user){
-        return res.status(401).send({message: 'unauthorized'})
+        return res.status(401).send({message: req.t('unauthorized')})
     }
     const chat = await ChatModel.findOne({_id:  req.params.id})
     if(!chat){
-        return res.status(404).send({message:'chat not found'})
+        return res.status(404).send({message: req.t('chat_not_found')})
     }
     var limit = 10;
     let totalMessage = await MessageModel.find(chat._id).count();
@@ -42,11 +42,11 @@ router.post('/:id/sendmessage',
     async (req, res) => {
     
     if(!req.user){
-        return res.status(401).send({message: 'unauthorized'})
+        return res.status(401).send({message: req.t('unauthorized')})
     }
     const chat = await ChatModel.findOne({_id:  req.params.id})
     if(!chat){
-        return res.status(404).send({message:'chat not found'})
+        return res.status(404).send({message: req.t('chat_not_found')})
     }
     try {
         let message = new MessageModel(req.body)
@@ -68,11 +68,11 @@ router.post('/lastSeenMessage',
     async (req, res) => {
     
     if(!req.user){
-        return res.status(401).send({message: 'unauthorized'})
+        return res.status(401).send({message: req.t('unauthorized')})
     }
     const chat = await ChatModel.findOne({_id:  req.params.id})
     if(!chat){
-        return res.status(404).send({message:'chat not found'})
+        return res.status(404).send({message: req.t('chat_not_found')})
     }
     try {
         chat.members.lastSeenAt = Date.now();

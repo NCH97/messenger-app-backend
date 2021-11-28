@@ -1,0 +1,7 @@
+{
+  "user_already_exist": "user already exist in chat",
+  "unauthorized" : "unauthorized access",
+  "chat_not_found" : "chat not found",
+  "user_not_found" : "user not found",
+  "password_invalid" : "password invalid"
+}

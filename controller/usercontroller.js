@@ -11,11 +11,11 @@ router.get('/', async (req, res) => {
 
 router.get('/me', async (req, res) => {
     if(!req.user){
-        return res.status(401).send({message: 'unauthorized'})
+        return res.status(401).send({message: req.t('unauthorized')})
     }
     const user = await UserModel.findOne({_id: req.user._id})
     if(!user){
-        return res.status(404).send({message:'user not found'})
+        return res.status(404).send({message: req.t('user_not_found')})
     }
     res.send({user: user})
 })
@@ -36,7 +36,7 @@ router.get('/:id',
     
     const user = await UserModel.findOne({_id: req.params.id})
     if(!user){
-        res.status(404).send({message: 'user not found'})
+        res.status(404).send({message: req.t('user_not_found')})
     }
     res.send({user})
 })
